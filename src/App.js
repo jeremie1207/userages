@@ -1,23 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import Users from "./components/Users/Users";
+
+import styles from "./components/Cards/Cards.module.css";
+import Form from "./components/Form/Form";
+
+import Dialog from "./components/Dialog/Dialog";
+
+
 
 function App() {
+
+  const [users, setUsers] = useState([]); 
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const addUser = (username, age) => {
+    const updateList = [
+      {
+        username : username,
+        age : age, 
+        id : Math.floor(Math.random() * 1000)
+      }, 
+      ... users
+    ]
+
+    setUsers(updateList);
+    setIsEmpty(false);
+
+  }
+
+  const showDialogHandler = (show, message) => {
+    setShowDialog(show);
+    setMessage(message);
+  }
+
+  const hiddenHandler = show => {
+    setShowDialog(show);
+  }
+ 
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className={styles.cards}>
+        <Form onAddHandler={addUser} onShowHandler={showDialogHandler}/>
+      </div>
+      <div style={{display : isEmpty ? 'none' : 'block'}} className={styles.cards}>
+        <Users users={users}/>
+      </div>
+
+      <Dialog message={message} show={showDialog} onHidden={hiddenHandler}/>
+      
     </div>
   );
 }

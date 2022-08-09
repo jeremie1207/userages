@@ -1,0 +1,22 @@
+.form{
+    margin: 1em;
+}
+
+.form input{
+    width: 95%;
+}
+
+.form label h3{
+    margin: .5em 0;
+}
+
+.form button{
+    background-color: rgb(67, 17, 67);
+    color: white;
+    padding: 4px 16px;
+    margin: .5em 0;
+}
+
+.form button:hover{
+    background-color: rgba(67, 17, 67, 0.886);
+}
